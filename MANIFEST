@@ -1,0 +1,9 @@
+Changes
+LICENSE
+MANIFEST
+META.yml
+Makefile.PL
+bin/d
+dist.ini
+lib/App/D.pm
+t/release-cpan-changes.t
