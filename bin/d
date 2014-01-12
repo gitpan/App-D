@@ -140,15 +140,16 @@ sub main {
     $msk += '4h';
     print " "x4 . $msk->strftime('%Y-%m-%d %H:%M:%S') . " " . $msk->tz . "\n";
 
-    my $ict = $moment->to_tz('ICT');
-    $ict += '7h';
-    print " "x4 . $ict->strftime('%Y-%m-%d %H:%M:%S') . " " . $ict->tz . "\n";
     print "\n";
 
+    my $prev_month_first_date = ($moment-'1M')->month_begin()->strftime('%Y-%m-%d');
+    my $cur_month_first_date = $moment->month_begin()->strftime('%Y-%m-%d');
+    my $next_month_first_date = ($moment+'1M')->month_begin()->strftime('%Y-%m-%d');
+
     print_header();
-    print_month( first_date => "2013-11-01", now => $moment, ident => $true );
-    print_month( first_date => "2013-12-01", now => $moment, ident => $false );
-    print_month( first_date => "2014-01-01", now => $moment, ident => $false );
+    print_month( first_date => $prev_month_first_date, now => $moment, ident => $true );
+    print_month( first_date => $cur_month_first_date, now => $moment, ident => $false );
+    print_month( first_date => $next_month_first_date, now => $moment, ident => $false );
     print "\n\n";
 }
 
@@ -166,7 +167,7 @@ script to show time and month info
 
 =head1 VERSION
 
-version 1.0.0
+version 1.1.0
 
 =head1 DESCRIPTION
 

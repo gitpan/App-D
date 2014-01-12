@@ -1,6 +1,6 @@
 package App::D;
 {
-  $App::D::VERSION = '1.0.0';
+  $App::D::VERSION = '1.1.0';
 }
 
 # ABSTRACT: show time and month info
@@ -19,7 +19,7 @@ App::D - show time and month info
 
 =head1 VERSION
 
-version 1.0.0
+version 1.1.0
 
 =head1 AUTHOR
 
