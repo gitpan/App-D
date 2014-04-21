@@ -7,3 +7,4 @@ bin/d
 dist.ini
 lib/App/D.pm
 t/release-cpan-changes.t
+xt/usage.t

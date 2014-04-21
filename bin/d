@@ -118,7 +118,11 @@ sub print_week {
             my $text = sprintf("%2d", $_->{number});
 
             if ($_->{color}) {
-                print colored($text, $_->{color}) . " ";
+                if (-t STDOUT) {
+                    print colored($text, $_->{color}) . " ";
+                } else {
+                    print $text . " ";
+                }
             } else {
                 print $text . " ";
             }
@@ -130,9 +134,13 @@ sub print_week {
     return $false;
 }
 
+sub get_now {
+    return now();
+}
+
 # main
 sub main {
-    my $moment = now();
+    my $moment = get_now();
     print "\n";
     print " "x4 . $moment->strftime('%Y-%m-%d %H:%M:%S') . " " . $moment->tz . "\n";
 
@@ -142,7 +150,7 @@ sub main {
 
     print "\n";
 
-    my $prev_month_first_date = ($moment-'1M')->month_begin()->strftime('%Y-%m-%d');
+    my $prev_month_first_date = (($moment->month_begin()) - '1D')->month_begin()->strftime('%Y-%m-%d');
     my $cur_month_first_date = $moment->month_begin()->strftime('%Y-%m-%d');
     my $next_month_first_date = ($moment+'1M')->month_begin()->strftime('%Y-%m-%d');
 
@@ -152,8 +160,8 @@ sub main {
     print_month( first_date => $next_month_first_date, now => $moment, ident => $false );
     print "\n\n";
 }
-
-main();
+main() if not caller;
+1;
 
 __END__
 
@@ -167,7 +175,7 @@ script to show time and month info
 
 =head1 VERSION
 
-version 1.1.0
+version 1.2.0
 
 =head1 DESCRIPTION
 

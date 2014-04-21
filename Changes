@@ -9,3 +9,12 @@ Revision history for App::D
 
         [Patch]
         * Fixing bug with getting incorrect months
+
+1.2.0   2014-04-22
+        [Minor]
+        * Color output only when run in terminal
+
+        [Patch]
+        * Fixig bug with incorrect output in the end of month
+        * Added tests
+        * Added .travis.yml
