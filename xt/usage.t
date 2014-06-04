@@ -31,7 +31,7 @@ sub basic_usage {
         $output,
 "
     2014-04-21 16:11:40 UTC
-    2014-04-21 20:11:40 MSK
+    2014-04-21 20:11:40 Europe/Moscow  <---
 
 Пн Вт Ср Чт Пт Сб Вс
                 1  2     март
@@ -77,7 +77,7 @@ sub end_of_month {
         $output,
 "
     2014-03-30 16:11:40 UTC
-    2014-03-30 20:11:40 MSK
+    2014-03-30 20:11:40 Europe/Moscow  <---
 
 Пн Вт Ср Чт Пт Сб Вс
                 1  2     февраль
@@ -102,6 +102,52 @@ sub end_of_month {
     return '';
 }
 
+sub date_2014_05_31 {
+
+    my $now = date('2014-05-31 09:42:34');
+
+    no warnings 'once';
+    no warnings 'redefine';
+    *main::get_now = sub {
+        return $now;
+    };
+
+    my $output = capture_merged {
+        main();
+    };
+
+    my $space = " ";
+
+
+    eq_or_diff(
+        $output,
+"
+    2014-05-31 09:42:34 UTC
+    2014-05-31 13:42:34 Europe/Moscow  <---
+
+Пн Вт Ср Чт Пт Сб Вс
+    1  2  3  4  5  6     апрель
+ 7  8  9 10 11 12 13$space
+14 15 16 17 18 19 20$space
+21 22 23 24 25 26 27$space
+28 29 30  1  2  3  4     май
+ 5  6  7  8  9 10 11$space
+12 13 14 15 16 17 18$space
+19 20 21 22 23 24 25$space
+26 27 28 29 30 31  1     июнь
+ 2  3  4  5  6  7  8$space
+ 9 10 11 12 13 14 15$space
+16 17 18 19 20 21 22$space
+23 24 25 26 27 28 29$space
+30$space
+
+",
+        'Got correct output for basic usage',
+    );
+
+    return '';
+}
+
 sub main_in_test {
 
     require 'bin/d';
@@ -110,6 +156,7 @@ sub main_in_test {
 
     basic_usage();
     end_of_month();
+    date_2014_05_31();
 
     done_testing();
 
