@@ -142,7 +142,52 @@ sub date_2014_05_31 {
 30$space
 
 ",
-        'Got correct output for basic usage',
+        'Got correct output for date 2014-05-31',
+    );
+
+    return '';
+}
+
+sub date_2014_08_02 {
+
+    my $now = date('2014-08-02 19:39:28');
+
+    no warnings 'once';
+    no warnings 'redefine';
+    *main::get_now = sub {
+        return $now;
+    };
+
+    my $output = capture_merged {
+        main();
+    };
+
+    my $space = " ";
+
+    eq_or_diff(
+        $output,
+"
+    2014-08-02 19:39:28 UTC
+    2014-08-02 23:39:28 Europe/Moscow  <---
+
+Пн Вт Ср Чт Пт Сб Вс
+    1  2  3  4  5  6     июль
+ 7  8  9 10 11 12 13$space
+14 15 16 17 18 19 20$space
+21 22 23 24 25 26 27$space
+28 29 30 31  1  2  3     август
+ 4  5  6  7  8  9 10$space
+11 12 13 14 15 16 17$space
+18 19 20 21 22 23 24$space
+25 26 27 28 29 30 31$space
+ 1  2  3  4  5  6  7     сентябрь
+ 8  9 10 11 12 13 14$space
+15 16 17 18 19 20 21$space
+22 23 24 25 26 27 28$space
+29 30$space
+
+",
+        'Got correct output for date 2014-08-02',
     );
 
     return '';
@@ -157,6 +202,7 @@ sub main_in_test {
     basic_usage();
     end_of_month();
     date_2014_05_31();
+    date_2014_08_02();
 
     done_testing();
 

@@ -31,3 +31,7 @@ Revision history for App::D
         [Patch]
         * Fixing bug with incorrect output at 2014-05-31
         * Fixing xt test
+
+1.3.2   2014-08-02
+        [Patch]
+        * Fixing incorrect output in special cases
